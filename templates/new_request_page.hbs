@@ -27,8 +27,25 @@
 
   const settings = {{json settings}};
 
+  const requestForm = {{json new_request_form}};
+  requestForm.ticket_fields.splice(requestForm.ticket_fields.findIndex((f) => f.name === 'request[custom_fields][32756296199693]'),1)
+  requestForm.ticket_fields.splice(requestForm.ticket_fields.findIndex((f) => f.name === 'request[custom_fields][33377088857485]'),1)
+  requestForm.email_field = {
+    "name": "user[email]",
+    "value": null,
+    "error": null,
+    "label": "Email",
+    "required": false,
+    "description": null,
+    "type": "anonymous_requester_email",
+    "id": -1,
+    "relationship_target_type": null,
+    "relationship_filter": null,
+    "options": null
+  };
+
   const props = {
-    requestForm: {{json new_request_form}},
+    requestForm,
     newRequestPath: {{json (page_path 'new_request')}},
     parentId: {{json parent.id}},
     parentIdPath: {{json parent.url}},
@@ -49,6 +66,8 @@
       requestPath: {{json (page_path 'request' id=answer_bot.request_id)}}
     },
   };
+
+  console.log("props", props);
 
   renderNewRequestForm(settings, props, container);
 </script>

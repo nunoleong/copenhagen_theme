@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "repository": "git@github.com:zendesk/copenhagen_theme.git",
   "scripts": {
-    "start": "concurrently -k -r 'rollup -c -w' 'wait-on script.js style.css && zcli themes:preview'",
-    "build": "NODE_ENV=production rollup -c",
-    "prebuild": "rm -f assets/*-bundle.js",
+    "start": "concurrently \"npx rollup -c -w\" \"wait-on script.js style.css && zcli themes:preview\"",
+    "build": "cross-env NODE_ENV=production rollup -c",
+    "prebuild": "npx rimraf -g \"assets/*-bundle.js\"",
     "eslint": "eslint src",
     "prepare": "husky install",
     "download-locales": "node ./bin/update-translations",
@@ -13,7 +13,8 @@
     "test-a11y": "node bin/lighthouse/index.js",
     "i18n:extract": "node bin/extract-strings.mjs",
     "i18n:update-translations": "node bin/update-modules-translations.mjs",
-    "zcli": "zcli"
+    "zcli": "zcli",
+    "package": "rimraf ./copenhagen_theme.zip && 7z a -r copenhagen_theme.zip . -x!node_modules"
   },
   "dependencies": {
     "@zendesk/help-center-wysiwyg": "0.1.0",
@@ -71,6 +72,7 @@
     "@typescript-eslint/parser": "^6.1.0",
     "@zendesk/zcli": "1.0.0-beta.52",
     "concurrently": "8.0.1",
+    "cross-env": "7.0.3",
     "dotenv": "16.0.3",
     "eslint": "8.35.0",
     "eslint-config-prettier": "8.6.0",
@@ -89,6 +91,7 @@
     "lighthouse": "12.6.0",
     "prettier": "2.8.4",
     "puppeteer": "24.9.0",
+    "rimraf": "5.0.5",
     "rollup": "3.29.5",
     "rollup-jest": "^3.1.0",
     "rollup-plugin-sass": "1.12.18",
@@ -108,6 +111,5 @@
     "extends": [
       "@commitlint/config-conventional"
     ]
-  },
-  "packageManager": "yarn@1.22.22"
+  }
 }
